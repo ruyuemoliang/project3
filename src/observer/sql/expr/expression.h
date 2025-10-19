@@ -493,6 +493,7 @@ private:
 class AggregateFunctionExpr : public Expression
 {
 public:
+  using Type=AggregateFunctionExpr;
   AggregateFunctionExpr(AggregateFunctionType type, Expression *child);
   AggregateFunctionExpr(AggregateFunctionType type, std::unique_ptr<Expression> child);
   virtual ~AggregateFunctionExpr() = default;

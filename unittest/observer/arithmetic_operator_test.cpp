@@ -12,8 +12,7 @@ See the Mulan PSL v2 for more details. */
 
 #include "sql/expr/arithmetic_operator.hpp"
 #include "gtest/gtest.h"
-#include "sql/builtin/builtin.h" 
-using enum AggregateFunctionType; //添加
+
 using namespace std;
 
 TEST(ArithmeticTest, arithmetic_test)

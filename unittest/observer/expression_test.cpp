@@ -17,8 +17,7 @@ See the Mulan PSL v2 for more details. */
 #include "sql/expr/expression.h"
 #include "sql/expr/tuple.h"
 #include "gtest/gtest.h"
-#include "sql/builtin/builtin.h" //添加
-using enum AggregateFunctionType; //添加
+
 using namespace std;
 using namespace common;
 
@@ -312,8 +311,7 @@ TEST(AggregateFunctionExpr, aggregate_expr_test)
 {
   Value                  int_value(1);
   unique_ptr<Expression> value_expr(new ValueExpr(int_value));
- // AggregateFunctionExpr  aggregate_expr(AggregateFunctionExpr::Type::SUM, std::move(value_expr));修改
-  AggregateFunctionExpr  aggregate_expr(SUM, std::move(value_expr));
+  AggregateFunctionExpr  aggregate_expr(AggregateFunctionExpr::Type::SUM, std::move(value_expr));
   aggregate_expr.equal(aggregate_expr);
   auto aggregator = aggregate_expr.create_aggregator();
   for (int i = 0; i < 100; i++) {
@@ -322,29 +320,18 @@ TEST(AggregateFunctionExpr, aggregate_expr_test)
   Value result;
   aggregator->evaluate(result);
   ASSERT_EQ(result.get_int(), 4950);
-  //AggregateFunctionExpr::Type aggr_type;
-  AggregateFunctionType aggr_type; //修改
+  AggregateFunctionExpr::Type aggr_type;
   ASSERT_EQ(RC::SUCCESS, AggregateFunctionExpr::type_from_string("sum", aggr_type));
-  ASSERT_EQ(aggr_type, SUM);
-  //ASSERT_EQ(aggr_type, AggregateFunctionExpr::Type::SUM);
+  ASSERT_EQ(aggr_type, AggregateFunctionExpr::Type::SUM);
   ASSERT_EQ(RC::SUCCESS, AggregateFunctionExpr::type_from_string("count", aggr_type));
-  ASSERT_EQ(aggr_type, COUNT);
-  //ASSERT_EQ(aggr_type, AggregateFunctionExpr::Type::COUNT);
+  ASSERT_EQ(aggr_type, AggregateFunctionExpr::Type::COUNT);
   ASSERT_EQ(RC::SUCCESS, AggregateFunctionExpr::type_from_string("avg", aggr_type));
-  ASSERT_EQ(aggr_type, AVG); 
-  //ASSERT_EQ(aggr_type, AggregateFunctionExpr::Type::AVG);
+  ASSERT_EQ(aggr_type, AggregateFunctionExpr::Type::AVG);
   ASSERT_EQ(RC::SUCCESS, AggregateFunctionExpr::type_from_string("max", aggr_type));
-  ASSERT_EQ(aggr_type, MAX);
-  //ASSERT_EQ(aggr_type, AggregateFunctionExpr::Type::MAX);
+  ASSERT_EQ(aggr_type, AggregateFunctionExpr::Type::MAX);
   ASSERT_EQ(RC::SUCCESS, AggregateFunctionExpr::type_from_string("min", aggr_type));
-  ASSERT_EQ(aggr_type, MIN);
-  //ASSERT_EQ(aggr_type, AggregateFunctionExpr::Type::MIN);
+  ASSERT_EQ(aggr_type, AggregateFunctionExpr::Type::MIN);
   ASSERT_EQ(RC::INVALID_ARGUMENT, AggregateFunctionExpr::type_from_string("invalid type", aggr_type));
-
-
-
-
-
 }
 
 int main(int argc, char **argv)

@@ -10,7 +10,7 @@ See the Mulan PSL v2 for more details. */
 
 #include <chrono>
 #include <iostream>
-#include "sql/builtin/builtin.h"//添加头文件
+
 #include "gtest/gtest.h"
 #include "sql/expr/aggregate_hash_table.h"
 
@@ -31,8 +31,8 @@ TEST(AggregateHashTableTest, DISABLED_standard_hash_table)
     }
     group_chunk.add_column(std::move(column1), 0);
     aggr_chunk.add_column(std::move(column2), 1);
-    AggregateFunctionExpr aggregate_expr(SUM, nullptr);
-    //AggregateFunctionExpr     aggregate_expr(AggregateFunctionExpr::Type::SUM, nullptr);//需要被改动
+
+    AggregateFunctionExpr     aggregate_expr(AggregateFunctionExpr::Type::SUM, nullptr);
     std::vector<Expression *> aggregate_exprs;
     aggregate_exprs.push_back(&aggregate_expr);
     auto standard_hash_table = std::make_unique<StandardAggregateHashTable>(aggregate_exprs);
@@ -74,8 +74,8 @@ TEST(AggregateHashTableTest, DISABLED_standard_hash_table)
     group_chunk.add_column(std::move(group2), 1);
     aggr_chunk.add_column(std::move(aggr1), 0);
     aggr_chunk.add_column(std::move(aggr2), 1);
-    AggregateFunctionExpr aggregate_expr(SUM, nullptr);
-    //AggregateFunctionExpr     aggregate_expr(AggregateFunctionExpr::Type::SUM, nullptr);被修改
+
+    AggregateFunctionExpr     aggregate_expr(AggregateFunctionExpr::Type::SUM, nullptr);
     std::vector<Expression *> aggregate_exprs;
     aggregate_exprs.push_back(&aggregate_expr);
     aggregate_exprs.push_back(&aggregate_expr);
